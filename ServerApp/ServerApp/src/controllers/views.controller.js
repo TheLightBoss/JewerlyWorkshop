@@ -17,11 +17,11 @@ class ViewsController
             let result_orders = new Array();
             all_orders.rows.forEach(row => {
                 //новые 
-                if(row['id_sotr'] === null && argument === "new"){
+                if(row['id_empl'] === null && argument === "new"){
                     result_orders.push(row);
                 }
                 //выполняющиеся
-                if(row['id_sotr'] !== null && argument === "running"){
+                if(row['id_empl'] !== null && argument === "running"){
                     result_orders.push(row);
                 }
                 //выполненные
@@ -31,8 +31,10 @@ class ViewsController
             });
             res.json(result_orders);
         }
-
     }
+    /*
+    * Получение заказов для клиентского приложения
+    */
     async getClientOrders(req, res){
         const id = req.params.id;
         console.log("Requested method GET 'ClientOrders' id_client = " + id);
