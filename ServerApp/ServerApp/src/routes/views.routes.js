@@ -4,7 +4,7 @@ const router = new Router();
 
 const viewsController = require("../controllers/views.controller");
 
-router.get('/orders/:id', viewsController.getOrders);
-router.get('/client/:id', viewsController.getClientOrders);
+router.post('/orders', viewsController.getOrders);
+router.post('/client', viewsController.getClientOrders);
 
 module.exports = router

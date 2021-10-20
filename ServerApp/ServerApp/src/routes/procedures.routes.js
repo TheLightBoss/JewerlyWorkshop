@@ -1,10 +1,9 @@
 const Router = require('express');
+const proceduresController = require('../controllers/procedures.controller');
 
 const router = new Router();
 
-const procedureController = require("../controllers/procedures.controller");
-
-//router.get('/orders/:id', viewsController.getOrders);
-//router.get('/client/:id', viewsController.getClientOrders);
+router.post('/production/', proceduresController.createProduction);
+router.put('/production/', proceduresController.updateProduction);
 
 module.exports = router
