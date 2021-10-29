@@ -13,13 +13,12 @@ class ViewsController{
             const result = all_orders.rows.filter(row => row['id_empl'] === null);
             res.json(result);
         }
-        if(argument === "run"){
-            const result = all_orders.rows.filter(row => row['id_empl'] === null);
+        else if(argument === "run"){
+            const result = all_orders.rows.filter(row => row['id_empl'] !== null);
             res.json(result);
         }
         else{
-            const result = all_orders.rows.filter(row => row['id_empl'] === null);
-            res.json(result);
+            res.json(all_orders.rows);
         }
     }
     /*
