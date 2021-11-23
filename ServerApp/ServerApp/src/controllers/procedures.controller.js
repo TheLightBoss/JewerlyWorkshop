@@ -11,10 +11,12 @@ class ProceduresController{
         try{
             await db.query('CALL public.insert_production($1, $2);', [id_empl, id_prod]);
             console.log("Added an entry to the 'productions'");
+            console.log("Request time: " + new Date);
             res.json(0);
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
@@ -29,10 +31,12 @@ class ProceduresController{
             query('CALL public.update_production($1, $2, $3, $4);', 
             [id_production, list_done, status, half_status]);
             console.log("Updated an entry to the 'productions' (id = " + id_production + ")");
+            console.log("Request time: " + new Date);
             res.json(0);
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
@@ -51,10 +55,12 @@ class ProceduresController{
             await db.query('CALL public.insert_employee($1, $2, $3, $4, $5, $6);', 
             [fio_new, address_new, passp, exp, log, passw]);
             console.log("Added an entry to the 'employees'");
+            console.log("Request time: " + new Date);
             res.json(0);
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
@@ -72,6 +78,7 @@ class ProceduresController{
                 await db.query('CALL public.update_employee($1, $2, $3, $4, $5, $6, $7);', 
                 [idd, fio_new, address_new, passp, exp, log, passw]);
                 console.log("Updated an entry to the 'employees' (id = " + idd + ")");
+                console.log("Request time: " + new Date);
                 res.json(0);                
             }
             else{
@@ -80,6 +87,7 @@ class ProceduresController{
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
@@ -93,10 +101,12 @@ class ProceduresController{
             await db.query('CALL public.insert_ref_product($1, $2, $3, $4, $5, $6, $7);', 
             [name_pr, url, id_mat, name_it, id_dec, id_listt, weight]);
             console.log("Added an entry to the 'reference_products'");
+            console.log("Request time: " + new Date);
             res.json(0);
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
@@ -110,10 +120,12 @@ class ProceduresController{
             await db.query('CALL public.update_ref_product($1, $2, $3, $4, $5, $6, $7, $8);', 
             [idd, name_pr, url, id_mat, name_it, id_dec, id_listt, weight]);
             console.log("Updated an entry to the 'reference_products'");
+            console.log("Request time: " + new Date);
             res.json(0);
         }
         catch(e){
             console.log('Error ' + e.name + ":" + e.message + "\n" + e.stack);
+            console.log("Request time: " + new Date);
             res.json(-1);
         }
     }
