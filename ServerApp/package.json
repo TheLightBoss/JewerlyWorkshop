@@ -11,8 +11,11 @@
   "author": "saak_sanya",
   "license": "ISC",
   "dependencies": {
+    "csv": "^6.0.4",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "soap": "^0.43.0",
+    "ws": "^8.3.0"
   },
   "devDependencies": {
     "chai": "^4.3.4",
