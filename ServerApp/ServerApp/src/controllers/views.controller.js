@@ -1,4 +1,4 @@
-const db = require('../connection_db/db')
+const db = require('../connection_db/db');
 
 class ViewsController{
     /** 
@@ -9,7 +9,7 @@ class ViewsController{
     */
     async getOrders(req, res){
         const {argument} = req.body;
-        console.log("Requested method POST 'Orders' " + argument);
+        console.log("\nRequested method POST 'Orders' " + argument);
         const all_orders = await db.query('SELECT * FROM all_orders');
         if(argument === "new"){
             const result = all_orders.rows.filter(row => row['id_empl'] === null);
@@ -33,7 +33,7 @@ class ViewsController{
     */
     async getClientOrders(req, res){
         const {id} = req.body;
-        console.log("Requested method POST 'Client's orders' id_client = " + id);
+        console.log("\nRequested method POST 'Client's orders' id_client = " + id);
         const client_orders = await db.query('SELECT * FROM client_orders');
         const result = client_orders.rows.filter(row => row['id_client'] == id);
         console.log("Request time: " + new Date);
@@ -42,7 +42,7 @@ class ViewsController{
     async getEmployee(req, res){
         console.log(req.body);
         const {login, password} = req.body;
-        console.log("Requested method GET 'Authorization'" + [login, password]);
+        console.log("\nRequested method POST 'Authorization'" + [login, password]);
         const client_orders = await db.query('SELECT * FROM employees');
         const result = client_orders.rows.find(row => 
             row['login'] === login && row['password'] === password);
@@ -61,4 +61,4 @@ class ViewsController{
 }
 
 //export this object
-module.exports = new ViewsController()
+module.exports = new ViewsController();

@@ -1,5 +1,4 @@
-const { json } = require('express');
-const db = require('../connection_db/db')
+const db = require('../connection_db/db');
 class ProceduresController{
 
     /**
@@ -7,7 +6,7 @@ class ProceduresController{
      */
     async createProduction(req, res){
         const {id_empl, id_prod} = req.body;
-        console.log("Requested method POST 'Production'");
+        console.log("\nRequested method POST 'Production'");
         try{
             await db.query('CALL public.insert_production($1, $2);', [id_empl, id_prod]);
             console.log("Added an entry to the 'productions'");
@@ -25,7 +24,7 @@ class ProceduresController{
      */
     async updateProduction(req, res){
         const {id_production, list_done, status, half_status} = req.body;
-        console.log("Requested method PUT 'Production'");
+        console.log("\nRequested method PUT 'Production'");
         try{
             const result = await db.
             query('CALL public.update_production($1, $2, $3, $4);', 
@@ -47,7 +46,7 @@ class ProceduresController{
         const {fio_new, address_new, passp, exp, log, passw} = req.body;
         const employees = await db.query('SELECT id_empl, login, password  FROM public.employees;');
         const copyEmpl = employees.rows.find(row => row['login'] === log && row['password'] === passw);
-        console.log("Requested method POST 'Employee'");
+        console.log("\nRequested method POST 'Employee'");
         try{
             if(copyEmpl !== undefined){
                 throw new Error('Login and password are not special');
@@ -68,15 +67,15 @@ class ProceduresController{
      * Updating an entry to the 'employees'
      */
     async updateEmployee(req, res){
-        const {idd, fio_new, address_new, passp, exp, log, passw} = req.body;
+        const {idd, fio_new, address_new, passp, exp, log, passw, is_deleted} = req.body;
         const employees = await db.query('SELECT id_empl, login, password FROM public.employees;');
         const copyEmpl = employees.rows.find(row => row['login'] === log 
             && row['password'] === passw);
-        console.log("Requested method PUT 'Employee'");
+        console.log("\nRequested method PUT 'Employee'");
         try{
             if(copyEmpl === undefined || copyEmpl['id_empl'] === idd ){
-                await db.query('CALL public.update_employee($1, $2, $3, $4, $5, $6, $7);', 
-                [idd, fio_new, address_new, passp, exp, log, passw]);
+                await db.query('CALL public.update_employee($1, $2, $3, $4, $5, $6, $7, $8);', 
+                [idd, fio_new, address_new, passp, exp, log, passw, is_deleted]);
                 console.log("Updated an entry to the 'employees' (id = " + idd + ")");
                 console.log("Request time: " + new Date);
                 res.json(0);                
@@ -96,7 +95,7 @@ class ProceduresController{
      */
     async createReferenceProduct(req, res){
         const {name_pr, url, id_mat, name_it, id_dec, id_listt, weight} = req.body;
-        console.log("Requested method POST 'Reference Product'");
+        console.log("\nRequested method POST 'Reference Product'");
         try{
             await db.query('CALL public.insert_ref_product($1, $2, $3, $4, $5, $6, $7);', 
             [name_pr, url, id_mat, name_it, id_dec, id_listt, weight]);
@@ -115,7 +114,7 @@ class ProceduresController{
      */
     async updateReferenceProduct(req, res){
         const {idd, name_pr, url, id_mat, name_it, id_dec, id_listt, weight} = req.body;
-        console.log("Requested method PUT 'Reference Product'");
+        console.log("\nRequested method PUT 'Reference Product'");
         try{
             await db.query('CALL public.update_ref_product($1, $2, $3, $4, $5, $6, $7, $8);', 
             [idd, name_pr, url, id_mat, name_it, id_dec, id_listt, weight]);
@@ -132,4 +131,4 @@ class ProceduresController{
 }
 
 //export this object
-module.exports = new ProceduresController()
+module.exports = new ProceduresController();

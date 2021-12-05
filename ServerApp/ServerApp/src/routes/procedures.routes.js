@@ -10,4 +10,4 @@ router.put('/employee/', proceduresController.updateEmployee);
 router.post('/ref_product/', proceduresController.createReferenceProduct);
 router.put('/ref_product/', proceduresController.updateReferenceProduct);
 
-module.exports = router
+module.exports = router;
