@@ -1,0 +1,17 @@
+D:\visual studio\Mobile\MobileApp\MobileApp\bin\Debug\netstandard2.0\MobileApp.deps.json
+D:\visual studio\Mobile\MobileApp\MobileApp\bin\Debug\netstandard2.0\MobileApp.dll
+D:\visual studio\Mobile\MobileApp\MobileApp\bin\Debug\netstandard2.0\ref\MobileApp.dll
+D:\visual studio\Mobile\MobileApp\MobileApp\bin\Debug\netstandard2.0\MobileApp.pdb
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.csprojAssemblyReference.cache
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\App.xaml.g.cs
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.AssemblyInfoInputs.cache
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.AssemblyInfo.cs
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.csproj.CoreCompileInputs.cache
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\XamlC.stamp
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.dll
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\ref\MobileApp.dll
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\MobileApp.pdb
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\Employee_page.xaml.g.cs
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\Orders_page.xaml.g.cs
+D:\visual studio\Mobile\MobileApp\MobileApp\obj\Debug\netstandard2.0\Product_page.xaml.g.cs
