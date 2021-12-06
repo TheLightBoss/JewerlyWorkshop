@@ -1,1 +1,1 @@
-# angular_JewerlyWorkshop
+# JewerlyWorkshop
