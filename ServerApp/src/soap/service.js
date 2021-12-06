@@ -9,7 +9,7 @@ var service_orders = {
                 const client_orders = await db.query('SELECT * FROM client_orders WHERE id_client = ' + id);
                 console.log("Request time: " + new Date);
                 return { bmi: JSON.stringify(client_orders.rows) };
-            },
+            }, 
             createOrder: async function (args) {
                 const { id_ref_prod, id_client, price_prod, size, weight } = JSON.parse(args.value_json);
                 console.log("\nRequested method(insert) POST 'Orders' (& 'Products')");

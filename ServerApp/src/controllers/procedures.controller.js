@@ -69,8 +69,8 @@ class ProceduresController{
     async updateEmployee(req, res){
         const {idd, fio_new, address_new, passp, exp, log, passw, is_deleted} = req.body;
         const employees = await db.query('SELECT id_empl, login, password FROM public.employees;');
-        const copyEmpl = employees.rows.find(row => row['login'] === log 
-            && row['password'] === passw);
+        const copyEmpl = employees.rows.find(row => row['login'] == log 
+            && row['password'] == passw);
         console.log("\nRequested method PUT 'Employee'");
         try{
             if(copyEmpl === undefined || copyEmpl['id_empl'] === idd ){
