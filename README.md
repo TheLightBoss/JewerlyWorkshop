@@ -1,1 +1,1 @@
-# Jewelry Workshop
+# JewerlyWorkshop
