@@ -15,5 +15,5 @@
 <ol><h2>Диаграмма архитектуры ИС и стек технологий</h2></ol>
 
 <p align="center">
-  <img height=220px weight = 400px src="https://user-images.githubusercontent.com/63611047/145841919-123342a4-9762-4e58-afaa-0a2756644402.png"/>
+  <img src="https://user-images.githubusercontent.com/63611047/145841919-123342a4-9762-4e58-afaa-0a2756644402.png"/>
 </p>
