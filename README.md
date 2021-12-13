@@ -12,4 +12,8 @@
   <img height=220px weight = 215px src="https://sun9-82.userapi.com/impf/nPH7azHiP170nl76o8CkygHdCj8EgcnVUp6tBQ/b5qmt1budJA.jpg?size=845x547&quality=96&sign=0d48644ea87d9d148419e5570e3a02d9&type=album" alt="List of jobs"/>
 </p>
 
-<h2>Диаграмма архитектуры ИС и стек технологий</h2>
+<ol><h2>Диаграмма архитектуры ИС и стек технологий</h2></ol>
+
+<p align="center">
+  <img height=220px weight = 400px src="https://user-images.githubusercontent.com/63611047/145841919-123342a4-9762-4e58-afaa-0a2756644402.png"/>
+</p>
