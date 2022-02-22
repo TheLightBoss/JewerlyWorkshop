@@ -1,0 +1,67 @@
+﻿@inject SOAPService soap
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Login" Class="mr-3 mb-n1" />
+            Регистрация
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="client.fio" Label="ФИО" Clearable="true" />
+        <MudTextField @bind-Value="client.requisites" Label="Реквизиты" Clearable="true" />
+        <MudTextField @bind-Value="client.address_live" Label="Адрес" Clearable="true" />
+        <MudTextField @bind-Value="client.contact_face" Label="Конт. данные" Clearable="true" />
+        <MudTextField @bind-Value="client.login" Label="Логин" Clearable="true" />
+        <MudTextField @bind-Value="client.password_hash" Label="Пароль" Clearable="true" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Отмена</MudButton>
+        <MudButton Color="Color.Info" OnClick="RegistrationS">Зарегистрироваться</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code{
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    ClientSOAP client = new();
+
+    void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+    void RegistrationS()
+    {
+        var result = soap.Registration(client);
+
+        if (result != null)
+        {
+            localStorage.SetItemAsync("login", result);
+            navigationManager.NavigateTo("/", true);
+        }
+        else Snackbar.Add("Ошибка логина", Severity.Error);
+
+    }
+}

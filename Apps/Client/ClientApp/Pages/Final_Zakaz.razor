@@ -1,0 +1,109 @@
+﻿@page "/final_zakaz"
+@inject IDialogService DialogService
+@inject NavigationManager NavMan
+@inject SOAPService soap
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+
+
+<MudContainer Class="mt-16">
+    <MudGrid Class="mt-8">
+        <MudItem>
+            <MudCard Elevation="25">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Ваше изделие</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div>
+                        <img width="490" height="400" src="@spr.url_pic" alt="Изделие" />
+                    </div>
+                    <br />
+                    @*<select @onchange="Callback" value="@selectedVal">
+                           @for (double i = 15; i <= 20; i += 0.5)
+                            {
+                                <option value="@i" />
+                            }
+                        </select>*@
+                    <MudSelect ValueChanged="Price_shet" T="double" Label="Размер" Strict="true" Variant="Variant.Filled" Format="F2">
+                        @for (double i = 15; i <= 20; i += 0.5)
+                        {
+                            <MudSelectItem T="double" Value="@i" />
+                        }
+                    </MudSelect>
+                    <MudText Typo="Typo.overline">Примерная стоимость кольца: @price_ руб</MudText>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton @onclick="SetIzdelie" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width:50%;" Disabled="@butt">Заказать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem>
+            <MudCard Elevation="25">
+
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+@code {
+    ClientSOAP clientSOAP;
+    bool butt = true;
+    double price_;
+    //SetCena cena = new();
+    protected override void OnInitialized()
+    {
+        price_ = Convert.ToDouble(Math.Round((Configurator_page.select_mat.price_mater * spr.weight_ref * 1.08), 2));
+    }
+     
+    RefProd spr = Conf_Osobenn.selectedIzd;
+    double selectedVal; //выбранный размер
+
+    CreateOrder createOrder = new();
+
+
+    private void Price_shet(double selVal)
+    {
+        this.selectedVal = selVal;
+        butt = false;
+        price_ = Convert.ToDouble(Math.Round((Configurator_page.select_mat.price_mater * (spr.weight_ref + selectedVal * 0.15) * 1.08), 2));
+    }
+    private async void SetIzdelie()
+    {
+        //izdel.IdIzdspr = spr.IdIzdspr;
+        //izdel.DateShtampa = null;
+        //izdel.IdProb = 1;
+        //izdel.Razmer = selectedVal;
+        //izdel.PriceIzd = Math.Round(cena.Koeff.Value * cena.PriceMater.Value * Convert.ToDecimal(selectedVal), 2);
+        //Service.InsertIzdelie(izdel);
+        //var auState = await authenticationStateTask;
+        //var User = auState.User;
+        //var us = await userManager.GetUserAsync(User);
+        //zakaz.IdClient = us.Id;
+        //zakaz.DateZak = DateTime.Now;
+        //zakaz.IdIzd = izdel.IdIzd;
+        //zakaz.StatusZak = false;
+        //zakazServ.InsertZakaz(zakaz);
+
+        //TODO: Выбирать клиента
+        clientSOAP = await localStorage.GetItemAsync<ClientSOAP>("login");
+        createOrder.id_client = clientSOAP.id_client;
+        createOrder.id_ref_prod = spr.id_ref_prod;
+        createOrder.size = selectedVal;
+        createOrder.weight = spr.weight_ref + selectedVal * 0.15;
+        createOrder.price_prod = Convert.ToDouble(Math.Round((Configurator_page.select_mat.price_mater * createOrder.weight * 1.08), 2));
+
+        if (soap.CreateOrder(createOrder)) ;
+
+        var dialog = await DialogService.Show<Success>("Успешно").Result;
+        if (!dialog.Cancelled)
+        {
+            NavMan.NavigateTo("/order");
+        }
+        else NavMan.NavigateTo("/");
+
+    }
+}

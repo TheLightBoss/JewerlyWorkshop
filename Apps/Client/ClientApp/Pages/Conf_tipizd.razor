@@ -1,0 +1,114 @@
+﻿@page "/conf_tipizd"
+@inject RefProdService Service
+@inject NavigationManager NavigationManager
+
+<MudContainer Class="mt-16">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Конфигуратор изделий</MudText>
+    <MudText Typo="Typo.h5" Align="Align.Center">Выберите тип изделия</MudText>
+    <MudGrid Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4 mudblazor-goal-paper in-c">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Кольцо</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@colco" width="230" height="200" alt="кольцо" />
+                    </div>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCol" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Кольцо с камнем</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@camen" width="230" height="200" alt="кольцо с камнем" />
+                    </div>
+                    
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCam" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Цепь</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@cepochka" width="230" height="200" alt="цепь" />
+                    </div>
+                    
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCep" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+</MudContainer>
+
+@code {
+
+    string colco, cepochka, camen;
+    int idMat;
+    public static int selectedTip;
+    public static IList<RefProd> izdelies;
+
+    protected override void OnInitialized()
+    {
+        idMat = Configurator_page.result;
+        izdelies = Service.GetRefProds();
+        foreach (var i in izdelies)
+        {
+            if (i.types_pr == "кольцо" && i.id_material == idMat)
+            {
+                colco = i.url_pic;
+
+            }
+            if (i.types_pr == "с камнем" && i.id_material == idMat)
+            {
+                camen = i.url_pic;
+
+            }
+            if (i.types_pr == "цепь" && i.id_material == idMat)
+            {
+                cepochka = i.url_pic;
+
+            }
+        }
+
+    }
+
+    private void OpenCol()
+    {
+        selectedTip = 1;
+        NavigationManager.NavigateTo("conf_osobenn");
+    }
+    private void OpenCam()
+    {
+        selectedTip = 2;
+        NavigationManager.NavigateTo("conf_osobenn");
+    }
+    private void OpenCep()
+    {
+        selectedTip = 3;
+        NavigationManager.NavigateTo("conf_osobenn");
+    }
+}

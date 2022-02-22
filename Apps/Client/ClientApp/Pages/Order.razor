@@ -1,0 +1,48 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject SOAPService soap
+@page "/order"
+
+
+<MudTable Items="@zakazs" Hover="true" SortLabel="Sort By" Bordered="true" Striped="true" Class="m-3" Loading="@(!loading)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Мои заказы</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<OrderSOAP, object>(x=>x.date_order)">Дата заказа</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<OrderSOAP, object>(x=>x.name_prod)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<OrderSOAP, object>(x=>x.price_prod)">Цена</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<OrderSOAP, object>(x=>x.size_prod)">Размер</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<OrderSOAP, object>(x=>x.status_order)">Статус заказа</MudTableSortLabel></MudTh>
+        <MudTh>Картинка</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Дата заказа">@context.date_order.AddDays(-1).ToShortDateString()</MudTd>
+        <MudTd DataLabel="Наименование">@context.name_prod</MudTd>
+        <MudTd DataLabel="Цена">@context.price_prod</MudTd>
+        <MudTd DataLabel="Размер">@context.size_prod</MudTd>
+        <MudTd DataLabel="Статус заказа">@(context.status_order ? "В процессе": "Выполнен")</MudTd>
+        <MudTd DataLabel="Картинка"><MudElement HtmlTag="img" src="@context.url_pic" Style="height:50px; width:50px;"></MudElement></MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+
+@code
+{
+    ClientSOAP clientSOAP;
+    List<OrderSOAP> zakazs = new List<OrderSOAP>();
+    bool loading;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            clientSOAP = await localStorage.GetItemAsync<ClientSOAP>("login");
+            zakazs = soap.GetOrders(clientSOAP.id_client);
+            loading = true;
+            StateHasChanged();
+        }
+    }
+
+
+}
