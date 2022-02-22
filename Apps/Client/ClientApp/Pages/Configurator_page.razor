@@ -1,0 +1,173 @@
+﻿@page "/configurator_page"
+@inject MaterialService Service
+@inject NavigationManager NavigationManager
+
+
+
+<MudContainer Class="mt-16">
+    @*<MudTable Items="@mats">
+            <HeaderContent>
+                <MudTh>ID</MudTh>
+                <MudTh>Name</MudTh>
+                <MudTh>URL</MudTh>
+                <MudTh>Price</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="ID">@context.id_mater</MudTd>
+                <MudTd DataLabel="Name">@context.name_mater</MudTd>
+                <MudTd DataLabel="URL">@context.url_mater</MudTd>
+                <MudTd DataLabel="Price">@context.price_mater</MudTd>
+            </RowTemplate>
+        </MudTable>*@
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Конфигуратор изделий</MudText>
+    <MudText Typo="Typo.h5" Align="Align.Center">Выберите материал изделия</MudText>
+    <MudGrid Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="0" Class="rounded-lg pb-4" Style="box-shadow: 0px 16px 40px 0px rgba(36, 35, 36, 0.29);">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Серебро 925</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@serebro" width="230" height="200" alt="серебро925" />
+                    </div>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenSer" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="0" Class="rounded-lg pb-4" Style="box-shadow: 0px 16px 40px 0px rgba(180, 159, 0, 0.29);">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Золото 725</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@gold" width="230" height="200" alt="золото725" />
+                    </div>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenGold" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="0" Class="rounded-lg pb-4" Style="box-shadow: 0px 16px 40px 0px rgba(184, 49, 103, 0.29);">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Розовое золото 585</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@rose" width="230" height="200" alt="розовое золото 585" />
+                    </div>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenRose" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+</MudContainer>
+
+@code
+{
+
+    public IList<Material> mats;
+    string gold, rose, serebro;
+    public static int result;
+    public static Material select_mat;
+    string h = "";
+    protected override void OnInitialized()
+    {
+
+        //string connectionStr = "Server=localhost; Port=5432; Database=jewerly; User Id=postgres; Password=saak2108;";
+        //NpgsqlConnection connection = new NpgsqlConnection(connectionStr);
+        //try
+        //{
+        //    connection.Open();
+        //    string cmd = "SELECT * FROM materials";
+        //    NpgsqlCommand command = new NpgsqlCommand(cmd, connection);
+        //    NpgsqlDataReader dataReader = command.ExecuteReader();
+
+        //    while (dataReader.Read())
+        //    {
+        //        h += (string)dataReader["name_mater"];
+
+        //        //mats.Add(new Mats((int)dataReader["id_mater"], (string)dataReader["name_mater"],
+        //        //  Convert.ToDouble(dataReader["price_mater"]), (int)dataReader["id_bank"], (string)dataReader["url_mater"]));
+        //        //banks.Add(new Bank((int)dataReader["id_bank"], (string)dataReader["name_bank"]));
+        //        //int i = dvg_Mats.Rows.Add();
+        //        //dvg_Mats.Rows[i].Cells[0].Value = (string)dataReader["name_mater"];
+        //        //dvg_Mats.Rows[i].Cells[1].Value = (string)dataReader["url_mater"];
+        //        //dvg_Mats.Rows[i].Cells[2].Value = dataReader["price_mater"];
+        //        //dvg_Mats.Rows[i].Cells[3].Value = (string)dataReader["name_bank"];
+        //        }
+        //    connection.Close();
+        //}
+        //catch {
+        //}
+        mats = Service.GetMaterials();
+        foreach (var i in mats)
+        {
+            if (i.name_mater == "золото725")
+            {
+                gold = i.url_mater;
+                break;
+            }
+        }
+        foreach (var i in mats)
+        {
+            if (i.name_mater == "розовое золото585")
+            {
+                rose = i.url_mater;
+                break;
+            }
+        }
+        foreach (var i in mats)
+        {
+            if (i.name_mater == "серебро")
+            {
+                serebro = i.url_mater;
+                break;
+            }
+        }
+
+    }
+
+    private void OpenRose()
+    {
+
+        result = 21;
+        select_mat = mats.FirstOrDefault(c => c.id_mater == 21);
+        NavigationManager.NavigateTo("conf_tipizd");
+    }
+
+    private void OpenGold()
+    {
+        result = 1;
+        select_mat = mats.FirstOrDefault(c => c.id_mater == 1);
+        NavigationManager.NavigateTo("conf_tipizd");
+    }
+
+    private void OpenSer()
+    {
+        result = 20;
+        select_mat = mats.FirstOrDefault(c => c.id_mater == 20);
+        NavigationManager.NavigateTo("conf_tipizd");
+    }
+
+}
+

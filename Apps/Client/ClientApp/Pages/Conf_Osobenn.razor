@@ -1,0 +1,120 @@
+﻿@page "/conf_osobenn"
+@inject RefProdService Service
+@inject NavigationManager NavigationManager
+
+<MudContainer Class="mt-16">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Конфигуратор изделий</MudText>
+    <MudText Typo="Typo.h5" Align="Align.Center">Выберите @nameTip</MudText>
+    <MudGrid Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">@need[0].name_prod</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@need[0].url_pic" width="230" height="200" alt="spec1" />
+                    </div>
+                    
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCol" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">@need[1].name_prod</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@need[1].url_pic" width="230" height="200" alt="spec2" />
+                    </div>
+                    
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCam" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">@need[2].name_prod</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <img class="mud-elevation-4" src="@need[2].url_pic" width="230" height="200" alt="spec3" />
+                    </div>
+
+                    
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCep" Size="Size.Large" Style="width:50%;">Выбрать</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+</MudContainer>
+
+
+@code {
+    string spec1, spec2, spec3, nameTip, chh;
+    public IList<RefProd> izdelies = Conf_tipizd.izdelies;
+    public IList<RefProd> need = new List<RefProd>();
+    public static RefProd selectedIzd;
+
+    protected override void OnInitialized()
+    {
+
+        if (Conf_tipizd.selectedTip == 1)
+        {
+            nameTip = "гравировку для кольца";
+            chh = "кольцо";
+        }
+        if (Conf_tipizd.selectedTip == 2)
+        {
+            nameTip = "камень для кольца";
+            chh = "с камнем";
+        }
+        if (Conf_tipizd.selectedTip == 3)
+        {
+            nameTip = "плетение цепочки";
+            chh = "цепь";
+        }
+        foreach (var i in izdelies)
+        {
+            if (i.id_material == Configurator_page.result && i.types_pr == chh)
+            {
+                need.Add(i);
+            }
+        }
+        spec1 = need[0].url_pic;
+        spec2 = need[1].url_pic;
+        spec3 = need[2].url_pic;//ДОБАВИТЬ ДО КОНЦА ВСЕ ИЗДЕЛИЯ
+    }
+    private void OpenCol()
+    {
+        selectedIzd = need[0];
+        NavigationManager.NavigateTo("final_zakaz");
+    }
+    private void OpenCam()
+    {
+        selectedIzd = need[1];
+        NavigationManager.NavigateTo("final_zakaz");
+    }
+    private void OpenCep()
+    {
+        selectedIzd = need[2];
+        NavigationManager.NavigateTo("final_zakaz");
+    }
+}

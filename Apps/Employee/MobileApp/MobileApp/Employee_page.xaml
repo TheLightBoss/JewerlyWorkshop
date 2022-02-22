@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.Employee_page">
+    <ContentPage.Content>
+        <StackLayout Padding="0,70,0,0">
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Margin="30,15">
+                <Label FontSize="Medium" Text="ФИО"/>
+                <Entry FontSize="Medium" HorizontalOptions="FillAndExpand" x:Name="EntryFio" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Margin="30,15">
+                <Label FontSize="Medium" Text="Логин"/>
+                <Entry FontSize="Medium" HorizontalOptions="FillAndExpand" x:Name="EntryLogin" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Margin="30,15">
+                <Label FontSize="Medium" Text="Пароль"/>
+                <Entry FontSize="Medium" HorizontalOptions="FillAndExpand" x:Name="EntryPassword" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Margin="30,15">
+                <Label FontSize="Medium" Text="Адрес"/>
+                <Entry FontSize="Medium" HorizontalOptions="FillAndExpand" x:Name="EntryAddress" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal"  Margin="30,15">
+                <Label FontSize="Medium" Text="Паспорт"/>
+                <Entry FontSize="Medium" HorizontalOptions="FillAndExpand" x:Name="EntryPassport" />
+            </StackLayout>
+
+            <StackLayout  Margin="30,15">
+
+                <Button FontAttributes="Bold"
+                                    Text="Сохранить изменения"
+                                    Clicked="Button_ClickUpdate"
+                                    HorizontalOptions="Fill" ></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

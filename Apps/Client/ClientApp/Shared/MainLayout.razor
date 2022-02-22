@@ -1,0 +1,175 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavMan
+@inject IDialogService DialogService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<MudAppBar Color="Color.Primary" Fixed="false">
+    @*<NavLink class="nav-link" href="counter">
+            <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        </NavLink>
+
+        <NavLink class="nav-link" href="configurator_page">
+            <MudIcon Icon="@Icons.Material.Filled.DesignServices"></MudIcon> Собрать изделие
+        </NavLink>*@
+
+
+
+
+
+
+    @if (idClient != 0)
+    {
+        <MudLink></MudLink>
+        <MudSpacer />
+        <MudButton Class="mx-2" OnClick="NavigateConf" Color="Color.Dark" Variant="Variant.Text" StartIcon="@Icons.Material.Filled.DesignServices">Конфигуратор</MudButton>
+        <MudSpacer />
+        <MudButton Class="mx-2" OnClick="@(() => NavMan.NavigateTo("/order"))" Color="Color.Dark" Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Storage">Мои заказы</MudButton>
+        <MudSpacer />
+        <MudText Class="mx-2" Typo="Typo.body1">@clientSOAP.fio</MudText>
+        <MudButton Class="mx-2" OnClick="Logout" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Text">Выйти</MudButton>
+    }
+    else
+    {
+        <MudButton Class="mx-2" OnClick="Log_in" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Text">Войти</MudButton>
+        <MudButton Class="mx-2" OnClick="Registrartion" Color="Color.Dark" StartIcon="@Icons.Material.Filled.HowToReg" Variant="Variant.Text">Регистрация</MudButton>
+    }
+    <MudSpacer />
+    <MudLink></MudLink>
+</MudAppBar>
+
+
+<MudContainer Style="height: 700px; width:100%;">
+    @Body
+</MudContainer>
+<footer class="footer-dark" style=" margin-top: 60px;
+        padding: 50px 0;
+        color: #f0f9ff;
+        background-color: #424242;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-3 item">
+                <h3>Сервисы</h3>
+                <ul>
+                    <li><a href="#">Web design</a></li>
+                    <li><a href="#">Hosting</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-3 item">
+                <h3>Информация</h3>
+                <ul>
+                    <li><a href="#">Company</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 item text">
+                <h3>Ювелирка</h3>
+                <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+            </div>
+            <div class="col item social"><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+        </div>
+        <p class="copyright">Company Name © 2021</p>
+    </div>
+</footer>
+
+
+
+
+<MudThemeProvider Theme="MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+
+@code
+{
+    int idClient;
+    ClientSOAP clientSOAP;
+    bool isAuthenticated;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            clientSOAP = await localStorage.GetItemAsync<ClientSOAP>("login");
+            if (clientSOAP != null)
+            {
+                idClient = clientSOAP.id_client;
+                StateHasChanged();
+            }
+        }
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Grey.Darken3,
+            Dark = Colors.Shades.White,
+        },
+
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "300px"
+        }
+    }; //цвета
+
+    void NavigateConf()
+    {
+        NavMan.NavigateTo("/configurator_page");
+        //else Snackbar.Add("Вы не авторизованы!", Severity.Error);
+    }
+    void Log_in()
+    {
+        DialogService.Show<Login>();
+    }
+    void Registrartion()
+    {
+        DialogService.Show<Registration>();
+        StateHasChanged();
+
+    }
+    void Logout()
+    {
+        localStorage.RemoveItemAsync("login");
+        NavMan.NavigateTo("/", true);
+        StateHasChanged();
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@*@inherits LayoutComponentBase
+
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+
+        <div class="main">
+            <div class="top-row px-4">
+                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </div>
+*@

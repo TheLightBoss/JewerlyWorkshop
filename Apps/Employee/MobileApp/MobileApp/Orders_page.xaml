@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.Orders_page">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Picker x:Name="picker_zak" 
+                    Title="Выберите заказ"
+                    HorizontalOptions="CenterAndExpand" 
+                    FontSize="Medium"
+                    Margin="20,20,20,5"
+                    SelectedIndexChanged="ButtonLoad_Image"
+                    ></Picker>
+
+            <Button FontAttributes="Bold" Text="Выбрать заказ" Clicked="ButtonHello_Click" Margin="40,0,40,30" HorizontalOptions="Fill"></Button>
+            <Button FontAttributes="Bold" Text="Изменить данные" Clicked="ButtonUpdate_Click" Margin="40,0,40,30" HorizontalOptions="Fill"></Button>
+            <Button FontAttributes="Bold" Text="Выйти из аккаунта" Clicked="ButtonExit_Click" HorizontalOptions="FillAndExpand" Margin="40,0"></Button>
+            <Label x:Name="label"  FontSize="Medium" HorizontalOptions="CenterAndExpand"/>
+            <Image x:Name="image"  Margin="13,50,13,0" ></Image>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
