@@ -8,6 +8,6 @@ router.put('/production/', proceduresController.updateProduction);
 router.post('/employee/', proceduresController.createEmployee);
 router.put('/employee/', proceduresController.updateEmployee);
 router.post('/ref_product/', proceduresController.createReferenceProduct);
-router.put('/ref_product/', proceduresController.updateReferenceProduct);
+router.put('/ref_product/', proceduresController.updateReferenceProduct); 
 
 module.exports = router;

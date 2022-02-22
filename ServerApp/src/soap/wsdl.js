@@ -15,10 +15,32 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 </message>
 
 <portType name="Hello_PortType">
+
 <operation name="getOrders">
 <input message="tns:getBMIRequest"/>
 <output message="tns:getBMIResponse"/>
 </operation>
+
+<operation name="createClient">
+<input message="tns:getBMIRequest"/>
+<output message="tns:getBMIResponse"/>
+</operation>
+
+<operation name="authClient">
+<input message="tns:getBMIRequest"/>
+<output message="tns:getBMIResponse"/>
+</operation>
+
+
+<operation name="getMats">
+<input message="tns:getBMIRequest"/>
+<output message="tns:getBMIResponse"/>
+</operation>
+<operation name="getRefProd">
+<input message="tns:getBMIRequest"/>
+<output message="tns:getBMIResponse"/>
+</operation>
+
 <operation name="createOrder">
 <input message="tns:getBMIRequest"/>
 <output message="tns:getBMIResponse"/>
@@ -35,6 +57,67 @@ transport="http://schemas.xmlsoap.org/soap/http"/>
 <operation name="getOrders">
 <operation name="createOrder">
 <operation name="updateOrder">
+<operation name="getMats">
+<operation name="getRefProd">
+<operation name="createClient">
+<operation name="authClient">
+<soap:operation soapAction="createClient"/>
+<input>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</input>
+<output>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</output>
+</operation>
+<soap:operation soapAction="authClient"/>
+<input>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</input>
+<output>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</output>
+</operation>
+
+<soap:operation soapAction="getRefProd"/>
+<input>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</input>
+<output>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</output>
+</operation>
+<soap:operation soapAction="getMats"/>
+<input>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</input>
+<output>
+<soap:body
+encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+namespace="urn:examples:helloservice"
+use="encoded"/>
+</output>
+</operation>
 <soap:operation soapAction="getOrders"/>
 <input>
 <soap:body

@@ -10,22 +10,22 @@ class ViewsController {
     async getOrders(req, res) {
         const { argument } = req.body;
         console.log("\nRequested method POST 'Orders' " + argument);
-        const all_orders = await db.query('SELECT * FROM all_orders');
+        
         if (argument === "new") {
-            const result = all_orders.rows.filter(row => row['id_empl'] === null);
+            const result = await db.query('SELECT * FROM new_orders');
+            console.log("Count orders: " + result.rows.length);
             console.log("Request time: " + new Date);
-            res.json(result);
+            res.json(result.rows);
         }
         else if (argument === "run") {
-            const result = all_orders.rows.filter(row => row['id_empl'] !== null
-                && row['status'] !== true);
+            const result = await db.query('SELECT * FROM run_orders');
+            console.log("Count orders: " + result.rows.length);
             console.log("Request time: " + new Date);
-            res.json(result);
+            res.json(result.rows);
         }
         else {
-            const result = all_orders.rows.filter(row => row['status'] === true);
             console.log("Request time: " + new Date);
-            res.json(result);
+            res.json("0");
         }
     }
     /**
@@ -35,7 +35,14 @@ class ViewsController {
         const { id } = req.body;
         console.log("\nRequested method POST 'Client's orders' id_client = " + id);
         const client_orders = await db.query('SELECT * FROM client_orders');
-        const result = client_orders.rows.filter(row => row['id_client'] == id);
+        const rr = client_orders.rows.forEach(el => {
+            if(el['status'] == null) 
+            {
+                console.log(el['status']) 
+                el['status'] = false;
+            }
+        });
+        const result = rr.filter(row => row['id_client'] == id);
         console.log("Request time: " + new Date);
         res.json(result);
     }
@@ -52,7 +59,6 @@ class ViewsController {
         res.json(result);
     }
     async getEmployee(req, res) {
-        console.log(req.body);
         const { login, password } = req.body;
         console.log("\nRequested method POST 'Authorization'" + [login, password]);
         const client_orders = await db.query('SELECT * FROM employees');
@@ -70,6 +76,14 @@ class ViewsController {
         }
 
     }
+    async getEmpls(req, res) {
+        console.log("\nRequested method POST 'Employees'");
+        const empls = await db.query('SELECT * FROM employees ORDER BY id_empl');
+        console.log("Count rows: " + empls.rows.length);
+        console.log("Request time: " + new Date);
+        res.json(empls.rows);
+    }
+    
 }
 
 //export this object
